@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { APIResponse, Result } from "./types/api-response";
+import { APIResponse } from "./types/api-response";
+import { userMapper } from "./mappers/users-mapper";
+import { User } from "./types/user";
 
 function App() {
-  const [users, setUsers] = useState<Result[]>();
+  const [users, setUsers] = useState<User[]>();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -22,7 +24,7 @@ function App() {
       }
 
       const data: APIResponse = await response.json();
-      setUsers(data.results);
+      setUsers(data.results.map((user) => userMapper(user)));
       setIsLoading(false);
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") return;
@@ -36,7 +38,7 @@ function App() {
 
   return (
     <>
-      <h1>Hello World!</h1>
+      <h1>Users</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {JSON.stringify(users)}
