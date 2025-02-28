@@ -1,19 +1,31 @@
+import { useState } from "react";
 import { User } from "../types/user";
+import UserDetail from "./UserDetail";
 
 interface Props {
   users: User[];
 }
 
 const UserList = ({ users }: Props) => {
+  const [openUserDetailsById, setOpenUserDetailsById] = useState<string | null>(
+    null
+  );
+
+  const toggleUserDetails = (userId: string) => {
+    setOpenUserDetailsById(openUserDetailsById === userId ? null : userId);
+  };
+
   return (
     <div className="user-list-container">
       <h2 className="title">UserList</h2>
       <table>
         <thead>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th></th>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {users.map((user) => (
@@ -25,14 +37,33 @@ const UserList = ({ users }: Props) => {
               <td>
                 <p className="email tablet">{user.email}</p>
                 <p className="address mobile-only">{user.address}</p>
-                <button className="btn-primary mobile-only">Show More</button>
+                <button
+                  onClick={() => toggleUserDetails(user.id)}
+                  className="btn-primary mobile-only"
+                >
+                  Show More
+                </button>
               </td>
               <td className="tablet">
                 <p>{user.address}</p>
               </td>
               <td className="tablet">
-                <button className="btn-primary">Show More</button>
+                <button
+                  onClick={() => toggleUserDetails(user.id)}
+                  className="btn-primary"
+                >
+                  Show More
+                </button>
               </td>
+              {openUserDetailsById === user.id && (
+                // TODO: Remove td when index: 1
+                <td>
+                  <UserDetail
+                    user={user}
+                    onClose={() => setOpenUserDetailsById(null)}
+                  />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
