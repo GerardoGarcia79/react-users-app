@@ -69,7 +69,7 @@ thead {
   text-align: left;
 }
 
-.title {
+.title, .filter-search-container {
   text-align: center;
 }
 

@@ -5,10 +5,18 @@ import UserDetail from "./UserDetail";
 interface Props {
   users: User[];
   page: number;
+  searchValue: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const UserList = ({ users, setPage, page }: Props) => {
+const UserList = ({
+  users,
+  setPage,
+  page,
+  setSearchValue,
+  searchValue,
+}: Props) => {
   const [openUserDetailsById, setOpenUserDetailsById] = useState<string | null>(
     null
   );
@@ -20,6 +28,18 @@ const UserList = ({ users, setPage, page }: Props) => {
   return (
     <div className="user-list-container">
       <h2 className="title">UserList</h2>
+      <div className="filter-search-container">
+        <label htmlFor="filter">Filter by name</label>
+        <input
+          id="filter"
+          type="text"
+          placeholder="Search..."
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
+        />
+      </div>
       <table>
         <thead>
           <tr>
