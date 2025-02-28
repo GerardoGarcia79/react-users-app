@@ -4,7 +4,7 @@ import { User } from "../types/user";
 
 interface Props {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setUsers: React.Dispatch<React.SetStateAction<User[] | undefined>>;
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   setError: React.Dispatch<React.SetStateAction<string>>;
   url: string;
   signal: AbortSignal;

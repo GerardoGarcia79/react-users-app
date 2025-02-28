@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "./services/getUsers";
 import { User } from "./types/user";
+import UserList from "./components/UserList";
 
 function App() {
-  const [users, setUsers] = useState<User[]>();
+  const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
@@ -16,12 +18,12 @@ function App() {
   }, []);
 
   return (
-    <>
-      <h1>Users</h1>
+    <div className="app-container">
+      <h1 className="title">Users</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {JSON.stringify(users)}
-    </>
+      <UserList users={users} />
+    </div>
   );
 }
 
