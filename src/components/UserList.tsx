@@ -4,9 +4,11 @@ import UserDetail from "./UserDetail";
 
 interface Props {
   users: User[];
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const UserList = ({ users }: Props) => {
+const UserList = ({ users, setPage, page }: Props) => {
   const [openUserDetailsById, setOpenUserDetailsById] = useState<string | null>(
     null
   );
@@ -68,6 +70,21 @@ const UserList = ({ users }: Props) => {
           ))}
         </tbody>
       </table>
+      <div className="btn-group">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage((current) => current - 1)}
+          className="btn-primary"
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => setPage((current) => current + 1)}
+          className="btn-primary"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

@@ -7,22 +7,27 @@ function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
-    const url = "https://randomuser.me/api/?page=1&results=10&seed=abc";
+    const url = `https://randomuser.me/api/?page=${page}&results=10&seed=abc`;
     getUsers({ url, signal, setError, setIsLoading, setUsers });
+    console.log(page);
 
     return () => controller.abort();
-  }, []);
+  }, [page]);
 
   return (
     <div className="app-container">
       <h1 className="title">Users</h1>
-      {isLoading && <p>Loading...</p>}
+      {!isLoading ? (
+        <UserList users={users} setPage={setPage} page={page} />
+      ) : (
+        <p>Loading...</p>
+      )}
       {error && <p>{error}</p>}
-      <UserList users={users} />
     </div>
   );
 }

@@ -119,6 +119,13 @@ table, th, td {
   border-collapse: collapse;
 }
 
+.btn-group {
+  margin: 10px auto;
+  width: 95%;
+  display: flex;
+  justify-content: end;
+}
+
 @media screen and (min-width: 768px) {
   thead {
     display: table-header-group;
