@@ -8,6 +8,7 @@ interface Props {
   users: User[];
   page: number;
   searchValue: SearchValueType;
+  error: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setSearchValue: React.Dispatch<React.SetStateAction<SearchValueType>>;
 }
@@ -18,6 +19,7 @@ const UserList = ({
   page,
   setSearchValue,
   searchValue,
+  error,
 }: Props) => {
   const [openUserDetailsById, setOpenUserDetailsById] = useState<string | null>(
     null
@@ -27,30 +29,38 @@ const UserList = ({
     setOpenUserDetailsById(openUserDetailsById === userId ? null : userId);
   };
 
+  if (error) return null;
+
   return (
-    <div className="user-list-container">
+    <section className="user-list-container">
       <h2 className="title">UserList</h2>
       <div className="filter-search-container">
-        <div>
-          Filter by: <DropdownMenu setSearchValue={setSearchValue} />
-        </div>
-        <input
-          id="filter"
-          type="text"
-          placeholder="Filter..."
-          value={searchValue.text}
-          onChange={(e) => {
-            setSearchValue((current) => ({ ...current, text: e.target.value }));
-          }}
-        />
+        <fieldset>
+          <legend>Filter users</legend>
+          <label htmlFor="filter">
+            Filter by: <DropdownMenu setSearchValue={setSearchValue} />
+          </label>
+          <input
+            id="filter"
+            type="text"
+            placeholder="Filter..."
+            value={searchValue.text}
+            onChange={(e) => {
+              setSearchValue((current) => ({
+                ...current,
+                text: e.target.value,
+              }));
+            }}
+          />
+        </fieldset>
       </div>
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th></th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col" aria-label="Actions"></th>
           </tr>
         </thead>
         <tbody>
@@ -82,7 +92,7 @@ const UserList = ({
                 </button>
               </td>
               {openUserDetailsById === user.id && (
-                <td>
+                <td id={`user-details-${user.id}`}>
                   <UserDetail
                     user={user}
                     onClose={() => setOpenUserDetailsById(null)}
@@ -96,11 +106,13 @@ const UserList = ({
       <div className="btn-group">
         <button
           disabled={page === 1}
+          aria-disabled={page === 1}
           onClick={() => setPage((current) => current - 1)}
           className="btn-primary"
         >
           Previous
         </button>
+        <p aria-live="polite">Page {page}</p>
         <button
           onClick={() => setPage((current) => current + 1)}
           className="btn-primary"
@@ -108,7 +120,7 @@ const UserList = ({
           Next
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

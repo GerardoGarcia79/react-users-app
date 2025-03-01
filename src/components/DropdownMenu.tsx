@@ -11,6 +11,7 @@ const DropdownMenu = ({ setSearchValue }: Props) => {
         setSearchValue((current) => ({ ...current, filterBy: e.target.value }));
         console.log(e.target.value);
       }}
+      aria-label="Filter users by"
     >
       <option value="name">Name</option>
       <option value="email">Email</option>

@@ -41,14 +41,18 @@ function App() {
 
     if (searchValue.filterBy === "name") {
       const newUsers = users.filter((user) =>
-        user.name.toLocaleLowerCase().includes(searchValue.text)
+        user.name
+          .toLocaleLowerCase()
+          .includes(searchValue.text.toLocaleLowerCase())
       );
       setFilteredUsers(newUsers);
     }
 
     if (searchValue.filterBy === "email") {
       const newUsers = users.filter((user) =>
-        user.email.toLocaleLowerCase().includes(searchValue.text)
+        user.email
+          .toLocaleLowerCase()
+          .includes(searchValue.text.toLocaleLowerCase())
       );
       setFilteredUsers(newUsers);
     }
@@ -57,23 +61,37 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <h1 className="title">Users</h1>
-      {!isLoading ? (
-        <UserList
-          users={
-            filteredUsers.length > 0 || searchValue ? filteredUsers : users
-          }
-          setPage={setPage}
-          page={page}
-          setSearchValue={setSearchValue}
-          searchValue={searchValue}
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
-      {error && <p>{error}</p>}
-    </div>
+    <main className="app-container">
+      <div className="content-container">
+        <h1 className="title">Users</h1>
+        {!isLoading ? (
+          <UserList
+            users={
+              filteredUsers.length > 0 || searchValue ? filteredUsers : users
+            }
+            setPage={setPage}
+            page={page}
+            setSearchValue={setSearchValue}
+            searchValue={searchValue}
+            error={error}
+          />
+        ) : (
+          <div role="status" aria-live="polite" className="center">
+            <span className="spinner" aria-hidden="true"></span>
+            <p>Loading users...</p>
+          </div>
+        )}
+        {error && (
+          <p
+            role="alert"
+            aria-live="assertive"
+            className="center error-message"
+          >
+            {error}
+          </p>
+        )}
+      </div>
+    </main>
   );
 }
 

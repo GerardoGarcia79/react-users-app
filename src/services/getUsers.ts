@@ -30,8 +30,11 @@ export const getUsers = async ({
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") return;
 
-    if (error instanceof Error)
-      setError(`An unexpected error occurred: ${error.message}`);
+    setError(
+      error instanceof Error
+        ? `An unexpected error occurred: ${error.message}`
+        : "An unexpected error occurred"
+    );
 
     setIsLoading(false);
   }

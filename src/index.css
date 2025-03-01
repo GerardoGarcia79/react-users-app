@@ -126,6 +126,39 @@ table, th, td {
   justify-content: end;
 }
 
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #000;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    position: absolute;
+    left: -1.5rem;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error-message {
+  color: var(--btn-danger);
+}
+
 @media screen and (min-width: 768px) {
   thead {
     display: table-header-group;
@@ -137,5 +170,9 @@ table, th, td {
 
   .tablet, td {
     display: table-cell;
+  }
+
+  .content-container {
+    padding-top: 10vh;
   }
 }
