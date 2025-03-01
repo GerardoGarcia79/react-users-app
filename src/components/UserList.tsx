@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { User } from "../types/user";
 import UserDetail from "./UserDetail";
+import DropdownMenu from "./DropdownMenu";
+import { SearchValueType } from "../App";
 
 interface Props {
   users: User[];
   page: number;
-  searchValue: string;
+  searchValue: SearchValueType;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  setSearchValue: React.Dispatch<React.SetStateAction<SearchValueType>>;
 }
 
 const UserList = ({
@@ -29,14 +31,16 @@ const UserList = ({
     <div className="user-list-container">
       <h2 className="title">UserList</h2>
       <div className="filter-search-container">
-        <label htmlFor="filter">Filter by name</label>
+        <div>
+          Filter by: <DropdownMenu setSearchValue={setSearchValue} />
+        </div>
         <input
           id="filter"
           type="text"
-          placeholder="Search..."
-          value={searchValue}
+          placeholder="Filter..."
+          value={searchValue.text}
           onChange={(e) => {
-            setSearchValue(e.target.value);
+            setSearchValue((current) => ({ ...current, text: e.target.value }));
           }}
         />
       </div>
@@ -78,7 +82,6 @@ const UserList = ({
                 </button>
               </td>
               {openUserDetailsById === user.id && (
-                // TODO: Remove td when index: 1
                 <td>
                   <UserDetail
                     user={user}

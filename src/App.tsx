@@ -4,13 +4,21 @@ import { getUsers } from "./services/getUsers";
 import { User } from "./types/user";
 import UserList from "./components/UserList";
 
+export interface SearchValueType {
+  filterBy: string;
+  text: string;
+}
+
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState<SearchValueType>({
+    filterBy: "name",
+    text: "",
+  });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -23,7 +31,6 @@ function App() {
 
   useEffect(() => {
     filterUsers();
-    console.log(searchValue);
   }, [searchValue, users]);
 
   const filterUsers = () => {
@@ -31,10 +38,22 @@ function App() {
       setFilteredUsers(users);
       return;
     }
-    const newUsers = users.filter((user) =>
-      user.name.toLocaleLowerCase().includes(searchValue)
-    );
-    setFilteredUsers(newUsers);
+
+    if (searchValue.filterBy === "name") {
+      const newUsers = users.filter((user) =>
+        user.name.toLocaleLowerCase().includes(searchValue.text)
+      );
+      setFilteredUsers(newUsers);
+    }
+
+    if (searchValue.filterBy === "email") {
+      const newUsers = users.filter((user) =>
+        user.email.toLocaleLowerCase().includes(searchValue.text)
+      );
+      setFilteredUsers(newUsers);
+    }
+
+    return;
   };
 
   return (
