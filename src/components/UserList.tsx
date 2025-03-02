@@ -57,7 +57,9 @@ const UserList = ({
       <table>
         <thead>
           <tr>
-            <th scope="col">Name</th>
+            <th scope="col" className="name-cell">
+              Name
+            </th>
             <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col" aria-label="Actions"></th>
@@ -67,7 +69,7 @@ const UserList = ({
           {users.map((user) => (
             <tr key={user.id} className="user-list-item">
               <td>
-                <p className="name">{user.name}</p>
+                <p className="name-cell">{user.name}</p>
                 <p className="email mobile-only">{user.email}</p>
               </td>
               <td>
@@ -83,7 +85,7 @@ const UserList = ({
               <td className="tablet">
                 <p>{user.address}</p>
               </td>
-              <td className="tablet">
+              <td className="tablet btn-cell">
                 <button
                   onClick={() => toggleUserDetails(user.id)}
                   className="btn-primary"

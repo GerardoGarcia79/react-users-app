@@ -63,7 +63,7 @@ function App() {
   return (
     <main className="app-container">
       <div className="content-container">
-        <h1 className="title">Users</h1>
+        <div className="divider" />
         {!isLoading ? (
           <UserList
             users={
@@ -90,6 +90,7 @@ function App() {
             {error}
           </p>
         )}
+        <div className="divider" />
       </div>
     </main>
   );

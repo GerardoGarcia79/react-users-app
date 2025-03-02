@@ -5,7 +5,6 @@
   --title: #2C3E50;
   --btn-primary: #3498DB;
   --btn-primary-hover: #2C3E50;
-  /* --text: #34495E; */
   --text: #192633;
   --btn-danger: #E74C3C;
   --btn-danger-hover: #C0392B;
@@ -14,14 +13,19 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   z-index: -1;
 }
 
-h1, h2 {
+h1, h2, fieldset, select, input {
   color: var(--title);
+}
+
+h2 {
+  font-size: 3rem;
 }
 
 p {
@@ -30,7 +34,7 @@ p {
 }
 
 .app-container {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background-color: var(--background);
 }
@@ -40,6 +44,7 @@ p {
   width: 85%;
   margin: 0 auto;
   padding: 10px;
+  border-radius: 8px;
 }
 
 table {
@@ -47,8 +52,41 @@ table {
   margin: 0 auto;
 }
 
+table, th, td {
+  border-collapse: collapse;
+}
+
+td {
+  margin: 10px 0;
+}
+
+td button {
+  margin: 5px 0;
+}
+
+thead {
+  background-color: var(--background);
+  height: 30px;
+}
+
+thead tr:first-child {
+  padding-left: 5px;
+}
+
+.name-cell {
+  padding-left: 5px;
+}
+
+
+tbody tr:nth-child(odd) {
+  background-color: #e3f2fd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
 .user-list-item {
-  background-color: var(--card-background);
   font-size: 14px;
 }
 
@@ -115,15 +153,21 @@ img {
   object-fit: contain;
 }
 
-table, th, td {
-  border-collapse: collapse;
-}
-
 .btn-group {
   margin: 10px auto;
   width: 95%;
   display: flex;
   justify-content: end;
+}
+
+fieldset {
+  border: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+fieldset label {
+  font-size: 1rem;
 }
 
 .spinner {
@@ -159,6 +203,75 @@ table, th, td {
   color: var(--btn-danger);
 }
 
+input {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 80%;
+  font-size: 18px;
+  transition: outline-color 0.5s;
+}
+
+input:focus {
+  outline-color: var(--btn-primary);
+  box-shadow: rgba(52, 152, 219, 0.25) 0px 5px 15px;
+}
+
+select {
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+option {
+  background: var(--btn-primary);
+  border-radius: 5px;
+  color: white;
+}
+
+option:hover {
+  background: black;
+}
+
+.btn-primary {
+  padding: .5rem;
+  background-color: var(--btn-primary);
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #000;
+  font-weight: 500;
+}
+
+td {
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  color: white;
+}
+
+.btn-group button {
+  width: 70px;
+  display: inline;
+  text-align: center;
+}
+
+.btn-group p {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  margin: 0 .5rem;
+  font-weight: 500;
+}
+
+.divider {
+  height: 20px;
+}
+
 @media screen and (min-width: 768px) {
   thead {
     display: table-header-group;
@@ -172,7 +285,21 @@ table, th, td {
     display: table-cell;
   }
 
-  .content-container {
-    padding-top: 10vh;
+  input {
+    margin-left: 5px;
+  }
+
+  .btn-cell {
+    padding: 10px;
+  }
+
+  input {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  input {
+    width: 30%;
   }
 }
