@@ -24,13 +24,29 @@ const UserDetail = ({ onClose, user }: Props) => {
             Close
           </button>
         </div>
-        <div>
+        <div className="img-container">
           <img src={user.picture} alt={`Profile picture of ${user.name}`} />
-          <p>Name:{user.name}</p>
-          <p>Email: {user.email}</p>
-          <p>Address: {user.address}</p>
-          <p>Cell: {user.cell}</p>
-          <p>Age: {user.age}</p>
+        </div>
+        <div className="info-container">
+          <p>
+            <span>Name: </span>
+            {user.name}
+          </p>
+          <p>
+            <span>Email: </span>
+            {user.email}
+          </p>
+          <p>
+            <span>Address: </span>
+            {user.address}
+          </p>
+          <span>
+            <p>Cell: {user.cell}</p>
+          </span>
+          <p>
+            <span>Age: </span>
+            {user.age}
+          </p>
         </div>
       </article>
     </div>
