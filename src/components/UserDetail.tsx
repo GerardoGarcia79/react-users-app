@@ -1,3 +1,4 @@
+import image from "../assets/landscape-placeholder.svg";
 import { User } from "../types/user";
 
 interface Props {
@@ -25,27 +26,31 @@ const UserDetail = ({ user, setOpenUserDetailsById }: Props) => {
           </button>
         </div>
         <div className="img-container">
-          <img src={user.picture} alt={`Profile picture of ${user.name}`} />
+          {/* TODO: */}
+          <img
+            src={user?.picture || image}
+            alt={`Profile picture of ${user?.name || "a person"}`}
+          />
         </div>
         <div className="info-container">
           <p>
             <span>Name: </span>
-            {user.name}
+            {user?.name || ""}
           </p>
           <p>
             <span>Email: </span>
-            {user.email}
+            {user?.email || ""}
           </p>
           <p>
             <span>Address: </span>
-            {user.address}
+            {user?.address || ""}
           </p>
           <span>
-            <p>Cell: {user.cell}</p>
+            <p>Cell: {user?.cell || ""}</p>
           </span>
           <p>
             <span>Age: </span>
-            {user.age}
+            {user?.age || ""}
           </p>
         </div>
       </article>

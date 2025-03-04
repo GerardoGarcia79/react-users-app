@@ -45,13 +45,7 @@ function App() {
           <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
           <UserList
             filteredUsers={filteredUsers}
-            page={page}
-            isLoading={isLoading}
-            error={error}
-            searchValue={searchValue}
             openUserDetailsById={openUserDetailsById}
-            setSearchValue={setSearchValue}
-            setPage={setPage}
             toggleUserDetails={toggleUserDetails}
             setOpenUserDetailsById={setOpenUserDetailsById}
           />
