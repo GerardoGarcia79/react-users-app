@@ -39,6 +39,10 @@ p {
   background-color: var(--background);
 }
 
+.loading {
+  background-color: var(--background);
+}
+
 .user-list-container {
   background-color: white;
   width: 85%;
