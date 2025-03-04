@@ -2,12 +2,12 @@ import { User } from "../types/user";
 
 interface Props {
   user: User;
-  onClose: () => void;
+  setOpenUserDetailsById: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const UserDetail = ({ onClose, user }: Props) => {
+const UserDetail = ({ user, setOpenUserDetailsById }: Props) => {
   return (
-    <div onClick={onClose} className="overlay">
+    <div onClick={() => setOpenUserDetailsById(null)} className="overlay">
       <article
         onClick={(e) => e.stopPropagation()}
         className="user-details-container"
@@ -17,7 +17,7 @@ const UserDetail = ({ onClose, user }: Props) => {
       >
         <div className="user-details-right">
           <button
-            onClick={onClose}
+            onClick={() => setOpenUserDetailsById(null)}
             className="close-btn"
             aria-label="Close user details"
           >

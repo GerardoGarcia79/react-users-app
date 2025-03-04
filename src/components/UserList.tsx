@@ -1,35 +1,47 @@
-import { useState } from "react";
-import { User } from "../types/user";
 import UserDetail from "./UserDetail";
 import DropdownMenu from "./DropdownMenu";
-import { SearchValueType } from "../App";
+import { User } from "../types/user";
+import { SearchValueType } from "../types/search-value-type";
 
 interface Props {
-  users: User[];
+  filteredUsers: User[];
   page: number;
-  searchValue: SearchValueType;
+  isLoading: boolean;
   error: string;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  searchValue: SearchValueType;
+  openUserDetailsById: string | null;
   setSearchValue: React.Dispatch<React.SetStateAction<SearchValueType>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  toggleUserDetails: (userId: string) => void;
+  setOpenUserDetailsById: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const UserList = ({
-  users,
-  setPage,
+  filteredUsers,
   page,
-  setSearchValue,
-  searchValue,
+  isLoading,
   error,
+  searchValue,
+  openUserDetailsById,
+  setSearchValue,
+  setPage,
+  toggleUserDetails,
+  setOpenUserDetailsById,
 }: Props) => {
-  const [openUserDetailsById, setOpenUserDetailsById] = useState<string | null>(
-    null
-  );
+  if (error)
+    return (
+      <p role="alert" aria-live="assertive" className="center error-message">
+        {error}
+      </p>
+    );
 
-  const toggleUserDetails = (userId: string) => {
-    setOpenUserDetailsById(openUserDetailsById === userId ? null : userId);
-  };
-
-  if (error) return null;
+  if (isLoading)
+    return (
+      <div role="status" aria-live="polite" className="center">
+        <span className="spinner" aria-hidden="true"></span>
+        <p>Loading users...</p>
+      </div>
+    );
 
   return (
     <section className="user-list-container">
@@ -66,7 +78,7 @@ const UserList = ({
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <tr key={user.id} className="user-list-item">
               <td>
                 <p className="name-cell">{user.name}</p>
@@ -97,7 +109,7 @@ const UserList = ({
                 <td id={`user-details-${user.id}`}>
                   <UserDetail
                     user={user}
-                    onClose={() => setOpenUserDetailsById(null)}
+                    setOpenUserDetailsById={setOpenUserDetailsById}
                   />
                 </td>
               )}

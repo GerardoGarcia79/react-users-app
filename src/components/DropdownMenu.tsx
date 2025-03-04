@@ -1,4 +1,4 @@
-import { SearchValueType } from "../App";
+import { SearchValueType } from "../types/search-value-type";
 
 interface Props {
   setSearchValue: React.Dispatch<React.SetStateAction<SearchValueType>>;
